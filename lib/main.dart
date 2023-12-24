@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:noteapp/views/Note_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const NoteApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NoteApp extends StatelessWidget {
+  const NoteApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const NoteApp(),
+      theme: ThemeData.dark(),
+      home: NoteView()
     );
-  }
-}
-class NoteApp extends StatelessWidget {
-const NoteApp({ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context){
-    return Container();
   }
 }
