@@ -10,28 +10,74 @@ class AddNoteButtomSheet extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 32,
-            ),
-            CustomTextField(hint: "Title"),
-            SizedBox(
-              height: 16,
-            ),
-            CustomTextField(
-              hint: "Content",
-              maxLines: 5,
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            CustomButton(),
-            SizedBox(
-              height: 16,
-            )
-          ],
-        ),
+        child: AddFormField(),
+      ),
+    );
+  }
+}
+
+class AddFormField extends StatefulWidget {
+  const AddFormField({
+    super.key,
+  });
+
+  @override
+  State<AddFormField> createState() => _AddFormFieldState();
+}
+
+class _AddFormFieldState extends State<AddFormField> {
+  final GlobalKey<FormState> form_key = GlobalKey();
+
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
+  String? title, subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: form_key,
+      autovalidateMode: autovalidateMode,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 32,
+          ),
+          CustomTextField(
+            onSaved: (value){
+              title: value;
+            },
+            hint: "Title"),
+          const SizedBox(
+            height: 16,
+          ),
+          CustomTextField(
+            onSaved: (value){
+              subtitle: value;
+            },
+            hint: "Content",
+            maxLines: 5,
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+           CustomButton(
+            onTap: (){
+              if(form_key.currentState!.validate()){
+                form_key.currentState!.save();
+              }else{
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {
+                  
+                });
+              }
+              }
+              )
+            
+          ,
+          const SizedBox(
+            height: 16,
+          )
+        ],
       ),
     );
   }
